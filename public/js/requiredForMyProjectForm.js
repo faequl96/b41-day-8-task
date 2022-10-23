@@ -169,7 +169,7 @@ uploadImg.addEventListener('click', function() {
             document.querySelector('.choose').style.backgroundColor = '#e4e4e4';
             document.querySelector('.choose').style.color = '#b2abab';
             document.querySelector('.choose').innerHTML = 'choose';
-            document.querySelector('.linkLogo').setAttribute("src", "public/img/link.png");
+            document.querySelector('.linkLogo').setAttribute("src", "../public/img/link.png");
             create.style.backgroundColor = '#e4e4e4';
             create.style.color = '#b2abab';
             create.style.cursor = 'default';
@@ -178,7 +178,7 @@ uploadImg.addEventListener('click', function() {
             document.querySelector('.choose').style.backgroundColor = 'black';
             document.querySelector('.choose').style.color = '#eaeaea';
             document.querySelector('.choose').innerHTML = 'choosed';
-            document.querySelector('.linkLogo').setAttribute("src", "public/img/check.png");
+            document.querySelector('.linkLogo').setAttribute("src", "../public/img/check.png");
             document.querySelector('.linkLogo').style.filter = 'drop-shadow(0 0 3px rgba(120, 120, 120, .7))';
             uploadImg.classList.remove('pin');
             if(projectName.value != "" && startDate.value != "" && endDate.value != "" && description.value != "" && uploadImg.value != "") {

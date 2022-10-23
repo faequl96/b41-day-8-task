@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"text/template"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -38,6 +39,7 @@ type projectDataStruc struct {
 	Duration     string
 	Description  string
 	Technologies []string
+	Image        string
 }
 
 var projectData = []projectDataStruc{
@@ -49,6 +51,7 @@ var projectData = []projectDataStruc{
 		Duration:     "1 Weeks",
 		Description:  "Description Dummy Project 1",
 		Technologies: []string{"NodeJs", "ReactJs"},
+		Image:        "gambar1.jpg",
 	},
 	{
 		Id:           1,
@@ -58,6 +61,7 @@ var projectData = []projectDataStruc{
 		Duration:     "5 Days",
 		Description:  "Description Dummy Project 2",
 		Technologies: []string{"NodeJs", "ReactJs", "TypeScript"},
+		Image:        "gambar2.jpg",
 	},
 }
 
@@ -102,6 +106,7 @@ func projectDetail(w http.ResponseWriter, r *http.Request) {
 					Duration:     selectedProject.Duration,
 					Description:  selectedProject.Description,
 					Technologies: selectedProject.Technologies,
+					Image:        selectedProject.Image,
 				}
 			}
 		}
@@ -153,16 +158,48 @@ func sendDataAddProject(w http.ResponseWriter, r *http.Request) {
 		projectName := r.PostForm.Get("project-name")
 		startDate := r.PostForm.Get("start-date")
 		endDate := r.PostForm.Get("end-date")
+		var duration string
 		description := r.PostForm.Get("description")
 		var technologies []string
 		technologies = r.Form["technologies"]
+		image := r.PostForm.Get("project-image")
+
+		layoutDate := "2006-01-02"
+		startDateParse, _ := time.Parse(layoutDate, startDate)
+		endDateParse, _ := time.Parse(layoutDate, endDate)
+
+		hour := 1
+		day := hour * 24
+		week := hour * 24 * 7
+		month := hour * 24 * 30
+		year := hour * 24 * 365
+
+		differHour := endDateParse.Sub(startDateParse).Hours()
+		var differHours int = int(differHour)
+		// fmt.Println(differHours)
+		days := differHours / day
+		weeks := differHours / week
+		months := differHours / month
+		years := differHours / year
+
+		if differHours < week {
+			duration = strconv.Itoa(int(days)) + " Days"
+		} else if differHours < month {
+			duration = strconv.Itoa(int(weeks)) + " Weeks"
+		} else if differHours < year {
+			duration = strconv.Itoa(int(months)) + " Months"
+		} else if differHours > year {
+			duration = strconv.Itoa(int(years)) + " Years"
+		}
 
 		addProjectData := projectDataStruc{
 			ProjectName:  projectName,
 			StartDate:    startDate,
 			EndDate:      endDate,
+			Duration:     duration,
 			Description:  description,
 			Technologies: technologies,
+			Image:        image,
 		}
 
 		projectData = append(projectData, addProjectData)
@@ -219,16 +256,48 @@ func sendDataEditProject(w http.ResponseWriter, r *http.Request) {
 		projectName := r.PostForm.Get("project-name")
 		startDate := r.PostForm.Get("start-date")
 		endDate := r.PostForm.Get("end-date")
+		var duration string
 		description := r.PostForm.Get("description")
 		var technologies []string
 		technologies = r.Form["technologies"]
+		image := r.PostForm.Get("project-image")
+
+		layoutDate := "2006-01-02"
+		startDateParse, _ := time.Parse(layoutDate, startDate)
+		endDateParse, _ := time.Parse(layoutDate, endDate)
+
+		hour := 1
+		day := hour * 24
+		week := hour * 24 * 7
+		month := hour * 24 * 30
+		year := hour * 24 * 365
+
+		differHour := endDateParse.Sub(startDateParse).Hours()
+		var differHours int = int(differHour)
+		// fmt.Println(differHours)
+		days := differHours / day
+		weeks := differHours / week
+		months := differHours / month
+		years := differHours / year
+
+		if differHours < week {
+			duration = strconv.Itoa(int(days)) + " Days"
+		} else if differHours < month {
+			duration = strconv.Itoa(int(weeks)) + " Weeks"
+		} else if differHours < year {
+			duration = strconv.Itoa(int(months)) + " Months"
+		} else if differHours > year {
+			duration = strconv.Itoa(int(years)) + " Years"
+		}
 
 		editSelectedProjectData := projectDataStruc{
 			ProjectName:  projectName,
 			StartDate:    startDate,
 			EndDate:      endDate,
+			Duration:     duration,
 			Description:  description,
 			Technologies: technologies,
+			Image:        image,
 		}
 
 		projectData[index] = editSelectedProjectData
