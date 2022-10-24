@@ -29,6 +29,8 @@ projectName.addEventListener('click', function() {
             create.style.backgroundColor = '#e4e4e4';
             create.style.color = '#b2abab';
             create.style.cursor = 'default';
+            create.removeAttribute('type');
+            create.setAttribute('type', 'button');
         } else{
             projectName.style.border = '2px solid rgba(0,0,0,0)';
             projectName.classList.remove('pin');
@@ -36,6 +38,8 @@ projectName.addEventListener('click', function() {
                 create.style.backgroundColor = '#000';
                 create.style.color = '#eaeaea';
                 create.style.cursor = 'pointer';
+                create.removeAttribute('type');
+                create.setAttribute('type', 'submit');
             }
         }
     })
@@ -64,6 +68,8 @@ startDate.addEventListener('click', function() {
             create.style.backgroundColor = '#e4e4e4';
             create.style.color = '#b2abab';
             create.style.cursor = 'default';
+            create.removeAttribute('type');
+            create.setAttribute('type', 'button');
         } else{
             startDate.style.border = '2px solid rgba(0,0,0,0)';
             startDate.classList.remove('pin');
@@ -71,6 +77,8 @@ startDate.addEventListener('click', function() {
                 create.style.backgroundColor = '#000';
                 create.style.color = '#eaeaea';
                 create.style.cursor = 'pointer';
+                create.removeAttribute('type');
+                create.setAttribute('type', 'submit');
             }
         }
     })
@@ -99,6 +107,8 @@ endDate.addEventListener('click', function() {
             create.style.backgroundColor = '#e4e4e4';
             create.style.color = '#b2abab';
             create.style.cursor = 'default';
+            create.removeAttribute('type');
+            create.setAttribute('type', 'button');
         } else{
             endDate.style.border = '2px solid rgba(0,0,0,0)';
             endDate.classList.remove('pin');
@@ -106,6 +116,8 @@ endDate.addEventListener('click', function() {
                 create.style.backgroundColor = '#000';
                 create.style.color = '#eaeaea';
                 create.style.cursor = 'pointer';
+                create.removeAttribute('type');
+                create.setAttribute('type', 'submit');
             }
         }
     })
@@ -134,6 +146,8 @@ description.addEventListener('click', function() {
             create.style.backgroundColor = '#e4e4e4';
             create.style.color = '#b2abab';
             create.style.cursor = 'default';
+            create.removeAttribute('type');
+            create.setAttribute('type', 'button');
         } else{
             description.style.border = '2px solid rgba(0,0,0,0)';
             description.classList.remove('pin');
@@ -141,6 +155,8 @@ description.addEventListener('click', function() {
                 create.style.backgroundColor = '#000';
                 create.style.color = '#eaeaea';
                 create.style.cursor = 'pointer';
+                create.removeAttribute('type');
+                create.setAttribute('type', 'submit');
             }
         }
     })
@@ -173,6 +189,8 @@ uploadImg.addEventListener('click', function() {
             create.style.backgroundColor = '#e4e4e4';
             create.style.color = '#b2abab';
             create.style.cursor = 'default';
+            create.removeAttribute('type');
+            create.setAttribute('type', 'button');
         } else{
             document.querySelector('.boxField').style.border = '2px solid rgba(0,0,0,0)';
             document.querySelector('.choose').style.backgroundColor = 'black';
@@ -185,9 +203,23 @@ uploadImg.addEventListener('click', function() {
                 create.style.backgroundColor = '#000';
                 create.style.color = '#eaeaea';
                 create.style.cursor = 'pointer';
+                create.removeAttribute('type');
+                create.setAttribute('type', 'submit');
             }
         }
     })
 })
 
+
+create.addEventListener('click', function() {
+    const projectName = document.querySelector('.projectName');
+    const startDate = document.querySelector('.startDate');
+    const endDate = document.querySelector('.endDate');
+    const description = document.querySelector('.description');
+    const uploadImg = document.querySelector('.uploadImg');
+
+    if(projectName.value == "" && startDate.value == "" && endDate.value == "" && description.value == "" && uploadImg.value == "") {
+        alert("Semua field wajib diisi!")
+    }
+})
 

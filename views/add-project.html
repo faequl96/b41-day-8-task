@@ -36,10 +36,10 @@
 
                     <ul class="navbar-nav d-none ms-auto mb-5 mb-md-0 gap-3">
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link active" href="/contact">Register</a>
+                            <a class="nav-link active" href="/register">Register</a>
                         </li>
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link active" href="/contact">Login</a>
+                            <a class="nav-link active" href="/login">Login</a>
                         </li>
                     </ul>
 
@@ -87,19 +87,19 @@
                         <label class="form-label mb-3">Technologies</label>
                         <div class="row">
                             <div class="col-5 pb-3">
-                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" name="technologies" value="NodeJs">
+                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="node" name="node" value="NodeJs">
                                 <label class="form-check-label pt-tech" for="node">Node Js</label>
                             </div>
                             <div class="col-7 pb-3">
-                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" name="technologies" value="ReactJs">
+                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="react" name="react" value="ReactJs">
                                 <label class="form-check-label pt-tech" for="react">React Js</label>
                             </div>
                             <div class="col-5">
-                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" name="technologies" value="VueJs">
+                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="vue" name="vue" value="VueJs">
                                 <label class="form-check-label pt-tech" for="vue">Vue Js</label>
                             </div>
                             <div class="col-7">
-                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" name="technologies" value="TypeScript">
+                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="typescript" name="typescript" value="TypeScript">
                                 <label class="form-check-label pt-tech" for="typescript">TypeScript</label>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <div class="col-12 mt-6 mb-form d-flex justify-content-end">
-                        <button type="submit" class="create px-5 py-2 fs-4 rounded-pill fw_bold">Create</button>
+                        <button type="button" class="create px-5 py-2 fs-4 rounded-pill fw_bold" style="cursor: default;">Create</button>
                     </div>
                 </form>
             </div>

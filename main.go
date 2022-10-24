@@ -17,15 +17,20 @@ func main() {
 	route.PathPrefix("/public").Handler(http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
 
 	route.HandleFunc("/", home).Methods("GET")
+	route.HandleFunc("/contact", contact).Methods("GET")
+
+	route.HandleFunc("/register", registerForm).Methods("GET")
+	route.HandleFunc("/login", loginForm).Methods("GET")
+
 	route.HandleFunc("/project-detail/{id}", projectDetail).Methods("GET")
 
-	route.HandleFunc("/form-add-project", formAddProject).Methods("GET")
+	route.HandleFunc("/form-add-project", addProjectForm).Methods("GET")
 	route.HandleFunc("/send-data-add-project", sendDataAddProject).Methods("POST")
-	route.HandleFunc("/form-edit-project/{id}", formEditProject).Methods("GET")
-	route.HandleFunc("/send-data-edit-project/{id}", sendDataEditProject).Methods("POST")
-	route.HandleFunc("/delete-project/{id}", deleteProject).Methods("GET")
 
-	route.HandleFunc("/contact", contact).Methods("GET")
+	route.HandleFunc("/form-edit-project/{id}", editProjectForm).Methods("GET")
+	route.HandleFunc("/send-data-edit-project/{id}", sendDataEditProject).Methods("POST")
+
+	route.HandleFunc("/delete-project/{id}", deleteProject).Methods("GET")
 
 	fmt.Println("Server running on localhost:8000")
 	http.ListenAndServe("localhost:8000", route)
@@ -50,7 +55,7 @@ var projectData = []projectDataStruc{
 		EndDate:      "2022-09-19",
 		Duration:     "1 Weeks",
 		Description:  "Description Dummy Project 1",
-		Technologies: []string{"NodeJs", "ReactJs"},
+		Technologies: []string{"NodeJs", "ReactJs", "", ""},
 		Image:        "gambar1.jpg",
 	},
 	{
@@ -60,7 +65,7 @@ var projectData = []projectDataStruc{
 		EndDate:      "2022-09-25",
 		Duration:     "5 Days",
 		Description:  "Description Dummy Project 2",
-		Technologies: []string{"NodeJs", "ReactJs", "TypeScript"},
+		Technologies: []string{"NodeJs", "ReactJs", "", "TypeScript"},
 		Image:        "gambar2.jpg",
 	},
 }
@@ -81,6 +86,49 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 		w.WriteHeader(http.StatusOK)
 		tmpl.Execute(w, response)
+	}
+}
+
+func contact(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	var tmpl, err = template.ParseFiles("views/contact.html")
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Message : " + err.Error()))
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	tmpl.Execute(w, nil)
+}
+
+func loginForm(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	var tmpl, err = template.ParseFiles("views/login.html")
+
+	if tmpl == nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Message : " + err.Error()))
+	} else {
+		w.WriteHeader(http.StatusOK)
+		tmpl.Execute(w, nil)
+	}
+}
+
+func registerForm(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	var tmpl, err = template.ParseFiles("views/register.html")
+
+	if tmpl == nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Message : " + err.Error()))
+	} else {
+		w.WriteHeader(http.StatusOK)
+		tmpl.Execute(w, nil)
 	}
 }
 
@@ -120,22 +168,7 @@ func projectDetail(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func contact(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-
-	var tmpl, err = template.ParseFiles("views/contact.html")
-
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Message : " + err.Error()))
-		return
-	}
-
-	w.WriteHeader(http.StatusOK)
-	tmpl.Execute(w, nil)
-}
-
-func formAddProject(w http.ResponseWriter, r *http.Request) {
+func addProjectForm(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	var tmpl, err = template.ParseFiles("views/add-project.html")
@@ -160,9 +193,10 @@ func sendDataAddProject(w http.ResponseWriter, r *http.Request) {
 		endDate := r.PostForm.Get("end-date")
 		var duration string
 		description := r.PostForm.Get("description")
-		var technologies []string
-		technologies = r.Form["technologies"]
+		technologies := []string{r.PostForm.Get("node"), r.PostForm.Get("react"), r.PostForm.Get("vue"), r.PostForm.Get("typescript")}
 		image := r.PostForm.Get("project-image")
+
+		fmt.Println(technologies)
 
 		layoutDate := "2006-01-02"
 		startDateParse, _ := time.Parse(layoutDate, startDate)
@@ -210,7 +244,7 @@ func sendDataAddProject(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func formEditProject(w http.ResponseWriter, r *http.Request) {
+func editProjectForm(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	tmpl, err := template.ParseFiles("views/edit-project.html")
@@ -226,11 +260,13 @@ func formEditProject(w http.ResponseWriter, r *http.Request) {
 		for index, selectedProject := range projectData {
 			if id == index {
 				selectedProjectData = projectDataStruc{
-					Id:          id,
-					ProjectName: selectedProject.ProjectName,
-					StartDate:   selectedProject.StartDate,
-					EndDate:     selectedProject.EndDate,
-					Description: selectedProject.Description,
+					Id:           id,
+					ProjectName:  selectedProject.ProjectName,
+					StartDate:    selectedProject.StartDate,
+					EndDate:      selectedProject.EndDate,
+					Description:  selectedProject.Description,
+					Technologies: selectedProject.Technologies,
+					Image:        selectedProject.Image,
 				}
 				fmt.Println(selectedProjectData.Description)
 			}
@@ -258,8 +294,7 @@ func sendDataEditProject(w http.ResponseWriter, r *http.Request) {
 		endDate := r.PostForm.Get("end-date")
 		var duration string
 		description := r.PostForm.Get("description")
-		var technologies []string
-		technologies = r.Form["technologies"]
+		technologies := []string{r.PostForm.Get("node"), r.PostForm.Get("react"), r.PostForm.Get("vue"), r.PostForm.Get("typescript")}
 		image := r.PostForm.Get("project-image")
 
 		layoutDate := "2006-01-02"

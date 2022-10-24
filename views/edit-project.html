@@ -36,10 +36,10 @@
 
                     <ul class="navbar-nav d-none ms-auto mb-5 mb-md-0 gap-3">
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link active" href="/contact">Register</a>
+                            <a class="nav-link active" href="/register">Register</a>
                         </li>
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link active" href="/contact">Login</a>
+                            <a class="nav-link active" href="/login">Login</a>
                         </li>
                     </ul>
 
@@ -86,22 +86,54 @@
                     <div class="col-12">
                         <label class="form-label mb-3">Technologies</label>
                         <div class="row">
-                            <div class="col-5 pb-3">
-                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" name="technologies" value="NodeJs">
-                                <label class="form-check-label pt-tech" for="node">Node Js</label>
-                            </div>
-                            <div class="col-7 pb-3">
-                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" name="technologies" value="ReactJs">
-                                <label class="form-check-label pt-tech" for="react">React Js</label>
-                            </div>
-                            <div class="col-5">
-                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" name="technologies" value="VueJs">
-                                <label class="form-check-label pt-tech" for="vue">Vue Js</label>
-                            </div>
-                            <div class="col-7">
-                                <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" name="technologies" value="TypeScript">
-                                <label class="form-check-label pt-tech" for="typescript">TypeScript</label>
-                            </div>
+                            {{if eq (index .selectedProjectData.Technologies 0) "NodeJs"}}
+                                <div class="col-5 pb-3">
+                                    <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="node" name="node" value="NodeJs" checked>
+                                    <label class="form-check-label pt-tech" for="node">Node Js</label>
+                                </div>
+                            {{else}}
+                                <div class="col-5 pb-3">
+                                    <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="node" name="node" value="NodeJs">
+                                    <label class="form-check-label pt-tech" for="node">Node Js</label>
+                                </div>
+                            {{end}}
+                            
+                            {{if eq (index .selectedProjectData.Technologies 1) "ReactJs"}}
+                                <div class="col-5 pb-3">
+                                    <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="react" name="react" value="ReactJs" checked>
+                                    <label class="form-check-label pt-tech" for="react">React Js</label>
+                                </div>
+                            {{else}}
+                                <div class="col-5 pb-3">
+                                    <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="react" name="react" value="ReactJs">
+                                    <label class="form-check-label pt-tech" for="react">React Js</label>
+                                </div>
+                            {{end}}
+
+                            {{if eq (index .selectedProjectData.Technologies 2) "vueJs"}}
+                                <div class="col-5 pb-3">
+                                    <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="vue" name="vue" value="VueJs" checked>
+                                    <label class="form-check-label pt-tech" for="vue">Vue Js</label>
+                                </div>
+                            {{else}}
+                                <div class="col-5 pb-3">
+                                    <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="vue" name="vue" value="VueJs">
+                                    <label class="form-check-label pt-tech" for="vue">Vue Js</label>
+                                </div>
+                            {{end}}
+
+                            {{if eq (index .selectedProjectData.Technologies 3) "typescript"}}
+                                <div class="col-5 pb-3">
+                                    <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="typescript" name="typescript" value="TypeScript" checked>
+                                    <label class="form-check-label pt-tech" for="typescript">TypeScript</label>
+                                </div>
+                            {{else}}
+                                <div class="col-5 pb-3">
+                                    <input class="form-check-input me-1 me-md-2 shadow" type="checkbox" id="typescript" name="typescript" value="TypeScript">
+                                    <label class="form-check-label pt-tech" for="typescript">TypeScript</label>
+                                </div>
+                            {{end}}
+                            
                         </div>
                     </div>
 
@@ -113,11 +145,11 @@
                             <div class="" style="height: 100%;">
                                 <img src="../public/img/link.png" height="100%" alt="Choose Image" class="linkLogo">
                             </div>
-                            <input type="file" accept="image/png, image/jpeg" class="uploadImg form-control" style="height: 100%; width: 98%; position: absolute; z-index: 99; opacity: 0;" name="project-image">
+                            <input type="file" accept="image/png, image/jpeg" class="uploadImg form-control" style="height: 100%; width: 98%; position: absolute; z-index: 99; opacity: 0;" name="project-image" value="{{.selectedProjectData.Image}}">
                         </div>
                     </div>
                     <div class="col-12 mt-6 mb-form d-flex justify-content-end">
-                        <button type="submit" class="create px-5 py-2 fs-4 rounded-pill fw_bold">Create</button>
+                        <button type="button" class="create px-5 py-2 fs-4 rounded-pill fw_bold" style="cursor: default;">Update</button>
                     </div>
                 </form>
             </div>

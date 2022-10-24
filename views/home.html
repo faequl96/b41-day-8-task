@@ -20,8 +20,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
+                <div class="offcanvas-header bg-nav">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigasi</h5>
+                    <div class="row w-50 ms-auto me-2">
+                        <a class="nav-link active col-7 text-center" href="/register">Register</a>  
+                        <a class="nav-link active col-5 text-center" href="/login">Login</a>
+                    </div> 
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
@@ -34,16 +38,16 @@
                         </li>
                     </ul>
 
-                    <ul class="navbar-nav d-none ms-auto mb-5 mb-md-0 gap-3">
+                    <ul class="navbar-nav d-none d-md-flex ms-auto mb-5 mb-md-0 gap-3">
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link active" href="/contact">Register</a>
+                            <a class="nav-link active" href="/register">Register</a>
                         </li>
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link active" href="/contact">Login</a>
+                            <a class="nav-link active" href="/login">Login</a>
                         </li>
                     </ul>
 
-                    <ul class="navbar-nav ms-0 ms-md-3 ms-xl-4 mb-2 mb-md-0">
+                    <ul class="navbar-nav ms-0 ms-md-4 mb-2 mb-md-0">
                         <li class="nav-item d-flex align-items-center">
                             <a class="nav-link btn px-3 py-1 btn-dark text-white" href="/contact">Contact Me</a>
                         </li>
